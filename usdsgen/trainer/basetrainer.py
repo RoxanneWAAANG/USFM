@@ -107,6 +107,16 @@ class BaseTrainer:
             self.logger.info(f"number of GFLOPs: {flops / 1e9}")
 
     def make_optimizer(self):
+    def make_optimizer(self):
+        # Skip optimizer and scheduler creation in test mode
+        if hasattr(self.config, 'mode') and self.config.mode == 'test':
+            self.logger.info("Test mode detected - using dummy optimizer and scheduler")
+            from torch.optim.lr_scheduler import LambdaLR
+            # Create a minimal optimizer just to satisfy the code
+            import torch
+            self.optimizer = torch.optim.SGD([{'params': self.model.parameters()}], lr=0.001)
+            self.lr_scheduler = LambdaLR(self.optimizer, lambda x: 1.0)
+            return
         # lr setting
         linear_scaled_lr = (
             self.config.train.base_lr

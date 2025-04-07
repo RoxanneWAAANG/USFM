@@ -12,7 +12,7 @@ model:
     pretrained: null
     backbone:
       type: HVITBackbone4Seg
-      pretrained: #
+      pretrained: "./assets/FMweight/USFM_latest.pth"
       img_size: ${data.img_size}
       patch_size: 16
       embed_dim: 768

@@ -2,7 +2,8 @@
 defaults:
   - baseconfig
   - _self_
-  - /data: Seg/FASS
+  # - /data: Seg/FASS
+  - /data: Seg/breast_us
   - /model: Seg/SegVit
   - /train: null
 
