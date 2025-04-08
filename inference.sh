@@ -2,10 +2,10 @@
 # inference.sh - Run inference using USFM on a downstream segmentation task
 
 # Set environment variables
-export batch_size=16
+export batch_size=2
 export num_workers=4
 export CUDA_VISIBLE_DEVICES=0,1,2
-export dataset=breast_us                     # toy_dataset
+export dataset=toy_dataset                    # breast_us 
 export pretrained_path=./assets/FMweight/USFM_latest.pth
 export task=Seg           # Use 'Cls' for classification inference
 export model=Seg/SegVit     # For segmentation; alternatively use 'Upernet' or 'vit' for classification

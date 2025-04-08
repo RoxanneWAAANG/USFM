@@ -259,18 +259,11 @@ class SegTrainer(BaseTrainer):
 
     @torch.no_grad()
     def test(self):
-        if self.config.model.resume and os.path.exists(self.config.model.resume):
+        if self.config.model.resume:
             self.load_resume()
         else:
-            # raise ValueError("No checkpoint loaded for testing")
-            # Instead of raising an error, load the pretrained weights directly
-            self.logger.info("No checkpoint provided.")
-            self.logger.info(
-                f"Loading pretrained weights from {self.config.model.model_cfg.backbone.pretrained}"
-            )
-            state_dict = torch.load(self.config.model.model_cfg.backbone.pretrained, map_location="cpu")
-            self.model.load_state_dict(state_dict, strict=False)
-        # self.load_resume()
+            raise ValueError("No checkpoint loaded for testing")
+        self.load_resume()
         self.logger.info("Start testing")
         dice, iou, loss, test_result = self.validate(self.dataloader_test)
         self.logger.info(f"Test Dice: {dice:.3f}, Test IoU: {iou:.3f}")
